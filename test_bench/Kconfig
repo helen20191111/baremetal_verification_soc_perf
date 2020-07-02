@@ -1,0 +1,7 @@
+menu "Test bench options"
+	config TEST_ZEMI3
+		bool
+		default n
+	source "test_bench/src/xtors/Kconfig"
+endmenu
+

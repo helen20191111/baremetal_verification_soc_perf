@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "ISP options"
+
+config IRISCV_BOOT
+	bool "Boot ISP RISCV enable."
+	default n
+	
+endmenu

@@ -1,0 +1,30 @@
+menu "Configure xtor uart"
+	config UART0_INIT
+		bool "uart0 init"
+		default y
+
+	config UART0_RUN
+		bool "uart0 run"
+		default n
+	
+	config UART1_INIT
+		bool "uart1 init"
+		default y
+
+	config UART1_RUN
+		bool "uart1 run"
+		default n
+	
+	config UART2_INIT
+		bool "uart2 init"
+		default y
+	
+	config UART3_INIT
+		bool "uart3 init"
+		default y
+
+	config UART3_SYNC
+		bool
+		default n
+		select UART3_INIT
+endmenu

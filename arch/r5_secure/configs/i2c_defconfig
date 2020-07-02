@@ -1,0 +1,76 @@
+#
+# Automatically generated file; DO NOT EDIT.
+# A1000/r5_secure 6.2.0 ut_zebu Configuration
+#
+
+#
+# Compiler: arm-none-eabi-gcc (GNU Tools for Arm Embedded Processors 8-2018-q4-major) 8.2.1 20181213 (release) [gcc-8-branch revision 267074]
+#
+CONFIG_CC_IS_GCC=y
+CONFIG_GCC_VERSION=80201
+CONFIG_CLANG_VERSION=0
+CONFIG_CC_HAS_ASM_GOTO=y
+
+#
+# General setup
+#
+CONFIG_LOCALVERSION=""
+CONFIG_LOCALVERSION_AUTO=y
+CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE=y
+# CONFIG_CC_OPTIMIZE_FOR_SIZE is not set
+CONFIG_ZEBU_HARDWARE_62=y
+# CONFIG_ZEBU_HARDWARE_60 is not set
+CONFIG_R5_SECURE=y
+# CONFIG_CPU_BIG_ENDIAN is not set
+CONFIG_HAVE_STACKPROTECTOR=y
+
+#
+# R5_SECURE General option and module option
+#
+# CONFIG_RELEASE_A55 is not set
+# CONFIG_RELEASE_R5_SAFETY is not set
+CONFIG_NO_AUTO_RELEASE=y
+
+#
+# module option
+#
+CONFIG_DDR_TEST=y
+
+#
+# DDR Configure
+#
+# CONFIG_IPC_TEST is not set
+# CONFIG_GDMA_TEST is not set
+# CONFIG_I2C_TEST is not set
+
+#
+# lib options
+#
+CONFIG_USE_TTY_IO=y
+# CONFIG_TEST_BENCH is not set
+
+#
+# General architecture-dependent options
+#
+CONFIG_CC_HAS_STACKPROTECTOR_NONE=y
+# CONFIG_STACKPROTECTOR is not set
+CONFIG_PLUGIN_HOSTCC=""
+
+#
+# A1000 hacking
+#
+
+#
+# print and message options
+#
+CONFIG_CONSOLE_LOGLEVEL_DEFAULT=7
+CONFIG_CONSOLE_LOGLEVEL_QUIET=4
+CONFIG_MESSAGE_LOGLEVEL_DEFAULT=4
+
+#
+# Compile-time checks and compiler options
+#
+CONFIG_FRAME_WARN=4096
+# CONFIG_STRIP_ASM_SYMS is not set
+# CONFIG_DEBUG_SECTION_MISMATCH is not set
+# CONFIG_DEBUG_A1000 is not set

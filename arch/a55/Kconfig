@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: GPL-2.0
+# Select 32 or 64 bit
+
+config A55
+	def_bool y
+	select A55_TIMER_TEST
+	select UART_TEST
+	select GPIO_TEST
+
+config 64BIT
+	def_bool y
+
+
+config CPU_BIG_ENDIAN
+	bool "Enable Big Endian Mode"
+    default n
+
+config HAVE_STACKPROTECTOR
+	bool "Enable HAVE_STACKPROTECTOR"
+    default y
+
+menu "A55 General option and module option"
+	config SMP
+		bool "Open SMP Test"
+
+	config ENABLE_CACHE
+		bool "Enable cache"
+		default y
+
+	source "module/Kconfig"
+endmenu

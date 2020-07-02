@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: GPL-2.0
+
+config R5_SAFETY
+	def_bool y
+
+config CPU_BIG_ENDIAN
+	bool "Enable Big Endian Mode"
+	default n
+
+
+config HAVE_STACKPROTECTOR
+	bool "Enable HAVE_STACKPROTECTOR"
+	default y
+
+menu "R5_SAFETY General option and module option"
+	config R5B
+		bool "R5B"
+
+	source "module/Kconfig"
+endmenu

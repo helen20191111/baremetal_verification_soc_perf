@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "VSP options"
+
+config VRISCV_BOOT
+	bool "Boot VSP RISCV enable."
+	default n
+	
+endmenu

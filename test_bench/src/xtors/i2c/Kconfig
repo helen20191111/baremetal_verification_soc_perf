@@ -1,0 +1,146 @@
+menu "Configure xort i2c"
+	config I2C_SLAVE_GENERAL
+		bool
+		default n
+
+	config I2C_MASTER_GENERAL
+		bool
+		default n
+
+	config I2C_ADDR_7BIT
+		bool "Configure i2c addr is 7 bit"
+		default y
+
+	config I2C0_SLAVE_INIT
+		bool "i2c0 slave init"
+		default y
+		select I2C_SLAVE_GENERAL
+	
+	config I2C0_SLAVE_RUN
+		bool "i2c0 slave run"
+		default n
+		depends on I2C0_SLAVE_INIT
+	
+	config I2C1_SLAVE_INIT
+		bool "i2c1 slave init"
+		default n
+
+	config I2C1_SLAVE_RUN
+		bool "i2c1 slave run"
+		default n
+		depends on I2C1_SLAVE_INIT
+
+	config I2C2_SLAVE_INIT
+		bool "i2c2 slave init"
+		default n
+		select I2C_SLAVE_GENERAL
+
+	config I2C2_SLAVE_RUN
+		bool "i2c2 slave run"
+		default n
+		depends on I2C2_SLAVE_INIT
+
+	config I2C3_SLAVE_INIT
+		bool "i2c3 slave init"
+		default n
+		select I2C_SLAVE_GENERAL
+
+	config I2C3_SLAVE_RUN
+		bool "i2c3 slave run"
+		default n
+		depends on I2C3_SLAVE_INIT
+		
+	config I2C4_SLAVE_INIT
+		bool "i2c4 slave init"
+		default n
+		select I2C_SLAVE_GENERAL
+
+	config I2C4_SLAVE_RUN
+		bool "i2c4 slave run"
+		default n
+		depends on I2C4_SLAVE_INIT
+
+	config I2C5_SLAVE_INIT
+		bool "i2c5 slave init"
+		default n
+		select I2C_SLAVE_GENERAL
+
+	config I2C5_SLAVE_RUN
+		bool "i2c5 slave run"
+		default n
+		depends on I2C5_SLAVE_INIT
+
+	config I2C0_MASTER_INIT
+		bool "i2c0 master init"
+		default y
+		depends on !I2C0_SLAVE_INIT
+		select UART3_SYNC
+		select I2C_MASTER_GENERAL
+
+	config I2C0_MASTER_RUN
+		bool "i2c0 master run"
+		default n
+		depends on I2C0_MASTER_INIT
+
+	config I2C1_MASTER_INIT
+		bool "i2c1 master init"
+		default n
+		depends on !I2C1_SLAVE_INIT
+		select UART3_SYNC
+		select I2C_MASTER_GENERAL
+
+	config I2C1_MASTER_RUN
+		bool "i2c1 master run"
+		default n
+		depends on I2C1_MASTER_INIT
+			
+	config I2C2_MASTER_INIT
+		bool "i2c2 master init"
+		default n
+		depends on !I2C2_SLAVE_INIT
+		select UART3_SYNC
+		select I2C_MASTER_GENERAL
+
+	config I2C2_MASTER_RUN
+		bool "i2c2 master run"
+		default n
+		depends on I2C2_MASTER_INIT
+
+	config I2C3_MASTER_INIT
+		bool "i2c3 master init"
+		default n
+		depends on !I2C3_SLAVE_INIT
+		select UART3_SYNC
+
+	config I2C3_MASTER_RUN
+		bool "i2c3 master run"
+		default n
+		depends on I2C3_MASTER_INIT
+		select UART3_SYNC
+		select I2C_MASTER_GENERAL
+
+	config I2C4_MASTER_INIT
+		bool "i2c4 master init"
+		default n
+		depends on !I2C4_SLAVE_INIT
+		select UART3_SYNC
+		select I2C_MASTER_GENERAL
+
+	config I2C4_MASTER_RUN
+		bool "i2c4 master run"
+		default n
+		depends on I2C4_MASTER_INIT
+
+	config I2C5_MASTER_INIT
+		bool "i2c5 master init"
+		default n
+		depends on !I2C5_SLAVE_INIT
+		select UART3_SYNC
+		select I2C_MASTER_GENERAL
+
+	config I2C5_MASTER_RUN
+		bool "i2c5 master run"
+		default n
+		depends on I2C5_MASTER_INIT
+endmenu
+

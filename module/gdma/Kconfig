@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "dma options"
+
+config DMAC
+    bool "Select DMAC module"
+    default y
+
+config DMAC_CHA_MAX
+    int
+    default 8
+    depends on DMAC
+
+config DMAC_LLP_FUNC
+    bool "Select DMAC pll funcation"
+    default n
+
+endmenu

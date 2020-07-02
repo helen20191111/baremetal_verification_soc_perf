@@ -1,0 +1,26 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "DDR Configure"
+
+choice
+	prompt "DDR init clock options"
+	default DDR_1066
+
+config DDR_1066
+	bool "DDR init 1066 fre"
+
+config DDR_3200
+	bool "DDR init 3200 fre"
+
+config DDR_3200_2D
+	bool "DDR init 3200 2d fre"
+
+endchoice
+
+config DDR_QOS_3200
+	bool "3200 (2d) fre use qos"
+	default n
+	depends on DDR_3200 || DDR_3200_2D
+
+endmenu
+
