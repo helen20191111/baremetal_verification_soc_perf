@@ -1,0 +1,1 @@
+# baremetal_verification_soc_perf
