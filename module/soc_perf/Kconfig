@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "soc perf Configure"
+
+config SOC_PERF_TEST_NUM
+	bool "SOC perf test num"
+	default n
+
+endmenu
+

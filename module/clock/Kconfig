@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "Clock options"
+
+config CLK_SETP_1
+    bool "noc clock frequency up to working fre"
+    default n
+
+config CLK_SETP_2
+    bool "ddr clock frequency up to working fre (200m to 800m)"
+    depends on CLK_SETP_1
+
+config CLK_SETP_3
+    bool "cpu clock frequency up to working fre (25m to 1.4G)"
+    depends on CLK_SETP_2
+
+config CLK_SETP_4
+    bool "peripherals clock frequency to working fre"
+    depends on CLK_SETP_3
+
+endmenu

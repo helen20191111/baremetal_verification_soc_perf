@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "UART options"
+
+config PRINT_UART_BAUD
+	int "print uart rate option"
+	default 38400
+	
+endmenu
+

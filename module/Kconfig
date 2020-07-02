@@ -1,0 +1,112 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "module option"
+	config DDR_TEST
+		bool "Open ddr test"
+		help
+			sdadad
+	if DDR_TEST
+	source "module/ddr/Kconfig"
+	endif
+
+	config IPC_TEST
+		bool "Open ipc test"
+	if IPC_TEST
+	source "module/ipc/Kconfig"
+	endif
+
+	config A55_TIMER_TEST
+		bool "Open a55 timer test"
+		depends on A55
+	if A55_TIMER_TEST
+	source "module/a55_timer/Kconfig"
+	endif
+
+	config GDMA_TEST
+		bool "Open gdma test"
+		depends on A55
+	if GDMA_TEST
+	source "module/gdma/Kconfig"
+	endif
+
+	config I2C_TEST
+		bool "Open i2c test"
+		depends on !R5_SECURE
+	if I2C_TEST
+	source "module/i2c/Kconfig"
+	endif
+
+	config UART_TEST
+		bool "Open UART test"
+	if UART_TEST
+	source "module/uart/Kconfig"
+	endif
+
+	config GPIO_TEST
+		bool "Open GPIO test"
+	if GPIO_TEST
+	source "module/gpio/Kconfig"
+	endif
+
+	config WDT_TEST
+		bool "Open WDT test"
+	if WDT_TEST
+	source "module/wdt/Kconfig"
+	endif
+
+	config PWM_TEST
+		bool "Open PWM test"
+	if PWM_TEST
+	source "module/pwm/Kconfig"
+	endif
+
+	config NOC_TEST
+		bool "Open NOC test"
+	if NOC_TEST
+	source "module/noc/Kconfig"
+	endif
+
+	config A55_INT_TEST
+		bool "Open a55 interrupt test"
+		depends on A55
+	if A55_INT_TEST
+	source "module/a55_int/Kconfig"
+	endif
+
+	config LSP_PARITY_TEST
+		bool "Open lsp parity test"
+		depends on R5_SAFETY
+	if LSP_PARITY_TEST
+	source "module/lsp_parity/Kconfig"
+	endif
+
+    config QSPI_TEST
+       	bool "Open qspi test"
+    if QSPI_TEST
+    source "module/qspi/Kconfig"
+    endif
+
+	config COREIP_ISP_TEST
+		bool "Open COREIP ISP test"
+	if COREIP_ISP_TEST
+	source "module/isp/Kconfig"
+	endif
+
+	config COREIP_VSP_TEST
+		bool "Open COREIP VSP test"
+	if COREIP_VSP_TEST
+	source "module/vsp/Kconfig"
+	endif
+	
+	if EVB
+	source "module/clock/Kconfig"
+	endif
+
+	config SOC_PERF_TEST
+		bool "Open SOC PERF test"
+	if SOC_PERF_TEST
+	source "module/soc_perf/Kconfig"
+	endif
+
+endmenu
+

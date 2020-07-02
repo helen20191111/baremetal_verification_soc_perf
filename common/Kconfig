@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "Common options"
+
+menu "Command line interface"
+
+config CMDLINE
+	bool "Support commands base on U-Boot"
+	default y
+	help
+	  Enable U-Boot's command-line functions. This provides a means
+	  to enter commands into U-Boot for a wide variety of purposes. It
+	  also allows scripts (containing commands) to be executed.
+	  Various commands and command categorys can be indivdually enabled.
+	  Depending on the number of commands enabled, this can add
+	  substantially to the size of U-Boot.
+
+config CMDLINE_EDITING
+	bool "Enable command line editing"
+	depends on CMDLINE
+	default y
+	help
+	  Enable editing and History functions for interactive command line
+	  input operations
+
+config AUTO_COMPLETE
+	bool "Enable auto complete using TAB"
+	depends on CMDLINE
+	default y
+	help
+	  Enable auto completion of commands using TAB.
+
+config SYS_LONGHELP
+	bool "Enable long help messages"
+	depends on CMDLINE
+	default y if CMDLINE
+	help
+	  Defined when you want long help messages included
+	  Do not set this option when short of memory.
+
+config SYS_PROMPT
+	string "Shell prompt"
+	default "[a55]# " if A55
+	default "[safety]# " if R5_SAFETY
+	default "[secure]# " if R5_SECURE
+	default "# "
+	help
+	  This string is displayed in the command line to the left of the
+	  cursor.
+
+endmenu
+
+endmenu
+
+if CMDLINE
+source "cmd/Kconfig"
+endif

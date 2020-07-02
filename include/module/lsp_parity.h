@@ -1,0 +1,10 @@
+#ifndef LSP_PARITY_H
+#define LSP_PARITY_H
+
+#define LSP0_SAFETY_FUN_CTRL_REG (0x18)
+#define LSP1_SAFETY_FUN_CTRL_REG (0x14)
+
+#define SAFENOC_ERR_INJ_CTRL (0x130)
+#define SAFENOC_ERR_INJ1_CTRL (0x134)
+
+#endif // LSP_PARITY_H

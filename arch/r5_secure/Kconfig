@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: GPL-2.0
+
+config R5_SECURE
+	def_bool y
+
+config CPU_BIG_ENDIAN
+	bool "Enable Big Endian Mode"
+	default n
+
+
+config HAVE_STACKPROTECTOR
+	bool "Enable HAVE_STACKPROTECTOR"
+	default y
+
+menu "R5_SECURE General option and module option"
+	choice
+		prompt "Secure release sequence"
+		default NO_AUTO_RELEASE
+
+	config RELEASE_A55
+		bool "Secure only release a55"
+		select DDR_TEST
+
+	config RELEASE_R5_SAFETY
+		bool "Secure only release r5 safety"
+
+	config NO_AUTO_RELEASE
+		bool "Secure no release anything"
+		select DDR_TEST
+	
+	endchoice
+
+	source "module/Kconfig"
+endmenu

@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "I2c options"
+
+config I2C_BST_CORE
+    bool "bst i2c core"
+    default n
+
+config I2C_MAX_BUS_NUM
+    int
+    default 6
+
+endmenu
+

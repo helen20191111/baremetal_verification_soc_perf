@@ -1,0 +1,17 @@
+menu "xtor select"
+	config XTOR_UART
+		bool "Configure xtor uart"
+		default y
+	if XTOR_UART
+	source "test_bench/src/xtors/uart/Kconfig"
+	endif
+
+	config XTOR_I2C
+		bool "Config xtor i2c"
+		default n
+	if XTOR_I2C
+	source "test_bench/src/xtors/i2c/Kconfig"
+	endif
+
+endmenu
+

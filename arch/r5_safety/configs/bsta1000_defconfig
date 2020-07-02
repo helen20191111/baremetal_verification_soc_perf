@@ -1,0 +1,132 @@
+#
+# Automatically generated file; DO NOT EDIT.
+# A1000/r5_safety 0.1.0 ut_zebu Configuration
+#
+
+#
+# Compiler: arm-none-eabi-gcc (15:6.3.1+svn253039-1build1) 6.3.1 20170620
+#
+CONFIG_CC_IS_GCC=y
+CONFIG_GCC_VERSION=60301
+CONFIG_CLANG_VERSION=0
+CONFIG_CC_HAS_ASM_GOTO=y
+
+#
+# General setup
+#
+CONFIG_LOCALVERSION=""
+CONFIG_LOCALVERSION_AUTO=y
+CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE=y
+# CONFIG_CC_OPTIMIZE_FOR_SIZE is not set
+
+#
+# Hardware setup
+#
+CONFIG_EVB=y
+# CONFIG_HAPS is not set
+# CONFIG_ZEBU is not set
+CONFIG_R5_SAFETY=y
+# CONFIG_CPU_BIG_ENDIAN is not set
+CONFIG_HAVE_STACKPROTECTOR=y
+
+#
+# R5_SAFETY General option and module option
+#
+# CONFIG_R5B is not set
+
+#
+# module option
+#
+CONFIG_DDR_TEST=y
+
+#
+# DDR Configure
+#
+CONFIG_DDR_1066=y
+# CONFIG_DDR_3200 is not set
+# CONFIG_DDR_3200_2D is not set
+# CONFIG_IPC_TEST is not set
+CONFIG_I2C_TEST=y
+
+#
+# I2c options
+#
+# CONFIG_I2C_BST_CORE is not set
+CONFIG_I2C_MAX_BUS_NUM=6
+CONFIG_UART_TEST=y
+
+#
+# UART options
+#
+CONFIG_PRINT_UART_BAUD=115200
+CONFIG_GPIO_TEST=y
+CONFIG_WDT_TEST=y
+CONFIG_PWM_TEST=y
+# CONFIG_NOC_TEST is not set
+# CONFIG_LSP_PARITY_TEST is not set
+# CONFIG_QSPI_TEST is not set
+# CONFIG_COREIP_ISP_TEST is not set
+# CONFIG_COREIP_VSP_TEST is not set
+
+#
+# Clock options
+#
+# CONFIG_CLK_SETP_1 is not set
+
+#
+# General architecture-dependent options
+#
+CONFIG_CC_HAS_STACKPROTECTOR_NONE=y
+# CONFIG_STACKPROTECTOR is not set
+CONFIG_PLUGIN_HOSTCC=""
+
+#
+# Common options
+#
+
+#
+# Command line interface
+#
+CONFIG_CMDLINE=y
+CONFIG_CMDLINE_EDITING=y
+CONFIG_AUTO_COMPLETE=y
+CONFIG_SYS_LONGHELP=y
+CONFIG_SYS_PROMPT="[safety]# "
+
+#
+# Module commands
+#
+CONFIG_CMD_OLD_CLI=y
+CONFIG_CMD_GET_IPID=y
+CONFIG_CMD_GPIO=y
+CONFIG_CMD_UART=y
+CONFIG_CMD_I2C=y
+# CONFIG_CMD_ISP is not set
+# CONFIG_CMD_VSP is not set
+CONFIG_CMD_MEMORY=y
+# CONFIG_CMD_DMAC is not set
+
+#
+# lib options
+#
+CONFIG_USE_TTY_IO=y
+# CONFIG_ERRNO_STR is not set
+
+#
+# A1000 hacking
+#
+
+#
+# print and message options
+#
+CONFIG_CONSOLE_LOGLEVEL_DEFAULT=7
+CONFIG_CONSOLE_LOGLEVEL_QUIET=4
+CONFIG_MESSAGE_LOGLEVEL_DEFAULT=4
+
+#
+# Compile-time checks and compiler options
+#
+CONFIG_FRAME_WARN=4096
+# CONFIG_STRIP_ASM_SYMS is not set
+# CONFIG_DEBUG_SECTION_MISMATCH is not set
+# CONFIG_DEBUG_A1000 is not set

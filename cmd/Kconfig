@@ -1,0 +1,73 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "Module commands"
+
+config CMD_OLD_CLI
+    bool "Compatible with the old command line interface"
+    default y
+    help
+        To be able to use the old test case, this configuration 
+        makes it possible to use the old command line interface.
+        
+config CMD_GET_IPID
+    bool "Get the id of all module IP, if possible"
+    default y
+    help
+        In order to obtain the available IP in system startup 
+        verification, the IP is confirmed to be available by 
+        reading the module id.
+
+config CMD_GPIO 
+    bool "Gpio module test command" 
+    default y 
+    help 
+        Set gpio pin input and output direction, output value,
+        and see gpio status.
+
+config CMD_UART 
+    bool "Uart module test command" 
+    default y 
+    help
+        Initialize uart module,	set baud rate, send and 
+        receive data.
+
+config CMD_I2C
+    bool "i2c"
+    help
+        I2C support
+
+config CMD_ISP
+    bool "ISP test command support"
+    select COREIP_ISP_TEST
+    help
+        isp support
+
+config CMD_VSP
+    bool "VSP test command support"
+    select COREIP_VSP_TEST
+    help
+        vsp support
+
+config CMD_MEMORY
+	bool "md, mw, cp, cmp, base"
+	default y
+	help
+	  Memory commands.
+	    md - memory display
+	    mw - memory write (fill)
+	    cp - memory copy
+	    cmp - memory compare
+	    base - print or set address offset
+
+config CMD_DMAC
+    bool "dmac command support"
+    select DMAC
+    select GDMA_TEST
+    depends on !ENABLE_CACHE
+
+ config CMD_SOC_PERF
+     bool "soc perf"
+     help
+         soc perf support
+
+endmenu

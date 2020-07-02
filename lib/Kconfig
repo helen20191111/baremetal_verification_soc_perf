@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: GPL-2.0
+
+menu "lib options"
+config USE_TTY_IO
+	bool "use tty io fo uart0 and uart1"
+	default y
+
+config ERRNO_STR
+	bool "Enable function for getting errno-related string message"
+	help
+	  The function errno_str(int errno), returns a pointer to the errno
+	  corresponding text message:
+	  - if errno is null or positive number - a pointer to "Success" message
+	  - if errno is negative - a pointer to errno related message
+
+endmenu
