@@ -216,10 +216,8 @@ static void save_sample_data(void)
 
 	/* get timestamp */
 	soc_perf_timestamp[uiBufCnt] = timer_get_boot_us();
-	// printf("timestamp %d\r\n",soc_perf_timestamp[uiBufCnt]);
 	/* get observe packet result */			
 	soc_noc_gdma_buffer[uiBufCnt] = observe_get_gdma_baudrate();
-	// soc_noc_vsp_buffer[uiBufCnt] = observe_get_vsp_baudrate();
 	/* get ddr0 monitor result */
 	ucPortEnable = g_soc_perf_test_port + 1u;
 	
@@ -443,7 +441,11 @@ static int soc_perf_set_test_port(cmd_tbl_t *cmdtp, int flag, int argc,
 static int soc_perf_start_test(cmd_tbl_t *cmdtp, int flag, int argc,
 				char * const argv[])
 {
-	u32	tempData = 0u;
+	// u64	t1 = 0u;
+	// u64	t2 = 0u;
+	// u64	t3 = 0u;
+	// u64	t4 = 0u;
+
 	fill_gdma_chn_message();
 
 	if (argc != 1) {
@@ -475,10 +477,7 @@ static int soc_perf_start_test(cmd_tbl_t *cmdtp, int flag, int argc,
 
 			if (g_sample_cycle <= (g_current_time - g_sample_time))
 			{
-                tempData = g_current_time - g_sample_time;
-
-				g_sample_time = g_current_time;
-
+				// printf("%d %d %d\r\n",g_current_time,g_sample_time,g_current_time - g_sample_time);	
 				update_ddr_monitor();
 
 				save_sample_data();
@@ -486,7 +485,9 @@ static int soc_perf_start_test(cmd_tbl_t *cmdtp, int flag, int argc,
 				clear_ddr_monitor_counter();
 				/* re-select group */
 				select_ddr_monitor_group();
-				printf("s_cyc %d\r\n",tempData); 
+			
+				g_current_time = timer_get_boot_us();
+				g_sample_time = g_current_time;
 			}
 			/* 检查是否到达监测统计时间？ */
 			if((g_current_time - g_start_time) >= g_soc_perf_cycle_time * 7380u)
