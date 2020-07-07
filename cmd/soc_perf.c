@@ -2,9 +2,9 @@
 #include <command.h>
 
 #include <module/soc_perf.h>
-#include "module/a55_timer.h"
 #include "module/dmac.h"
 #include "autoconf.h"
+#include <time.h>
 
 #define COUNTER_BUFF_SIZE	(1024u*4u)
 
@@ -13,7 +13,7 @@ u64 g_soc_perf_cycle_time = 10;
 u64 g_soc_perf_ddr_grp_num = 0;
 u8 g_soc_perf_test_port = 0;
 /* 采样周期时间 */
-u64 g_sample_cycle = 50u;
+u64 g_sample_cycle = 0u;
 
 u64 g_start_time = 0u;
 u64 g_sample_time = 0u;
@@ -39,7 +39,7 @@ static struct dma_memcpy_struct *mem_list[] = {
         &mem6,
         &mem7,
 };
-
+u8	g_set_sample_cycle_flag = 0u;
 u32 *pFlag = NULL;
 
 u32 soc_perf_timestamp[COUNTER_BUFF_SIZE] = {0u,};
@@ -64,8 +64,15 @@ u64 soc_ddr1_perf_counter3_buffer[COUNTER_BUFF_SIZE] = {0u,};
 
 static void cal_sample_time(void)
 {
-	/* calculate ticks of g_sample_time */
-	g_sample_cycle = g_soc_perf_cycle_time * 7380u / COUNTER_BUFF_SIZE; 
+	if(g_set_sample_cycle_flag  == 0)
+	{
+		/* calculate ticks of g_sample_time */
+		g_sample_cycle = g_soc_perf_cycle_time * 7380u / COUNTER_BUFF_SIZE / 3u * 2u ; 
+	}
+	else
+	{
+		;/* do nothing,use the set sample time */;
+	}
 	printf("cal stime %d\r\n",g_sample_cycle);
 }
 
@@ -73,43 +80,43 @@ static void fill_gdma_chn_message(void)
 {
 #if 0
 	/* fill 8 chn message start DDR0 to DDR1 & DDR1 to DDR0 */
-	mem0.src = (dma_addr_t)0x80010000u;
-    mem0.dst = (dma_addr_t)0x180010000u;
+	mem0.src = (dma_addr_t)0x80000000u;
+    mem0.dst = (dma_addr_t)0x180000000u;
     mem0.length = 0x10000u;
     mem0.chan = 0u;
 
-	mem1.src = (dma_addr_t)0x80020000;
-    mem1.dst = (dma_addr_t)0x180020000;
+	mem1.src = (dma_addr_t)0x80010000;
+    mem1.dst = (dma_addr_t)0x180010000;
     mem1.length = 0x10000u;;
     mem1.chan = 1u;
 
-	mem2.src = (dma_addr_t)0x80030000;
-    mem2.dst = (dma_addr_t)0x180030000;
+	mem2.src = (dma_addr_t)0x80020000;
+    mem2.dst = (dma_addr_t)0x180020000;
     mem2.length = 0x10000u;;
     mem2.chan = 2u;
 
-	mem3.src = (dma_addr_t)0x80040000;
-    mem3.dst = (dma_addr_t)0x180040000;
+	mem3.src = (dma_addr_t)0x80030000;
+    mem3.dst = (dma_addr_t)0x180030000;
     mem3.length = 0x10000u;;
     mem3.chan = 3u;
 
-	mem4.src = (dma_addr_t)0x180050000;
-    mem4.dst = (dma_addr_t)0x80050000;
+	mem4.src = (dma_addr_t)0x180040000;
+    mem4.dst = (dma_addr_t)0x80040000;
     mem4.length = 0x10000u;;
     mem4.chan = 4u;
 
-	mem5.src = (dma_addr_t)0x180060000;
-    mem5.dst = (dma_addr_t)0x80060000;
+	mem5.src = (dma_addr_t)0x180050000;
+    mem5.dst = (dma_addr_t)0x80050000;
     mem5.length = 0x10000u;;
     mem5.chan = 5u;
 
-	mem6.src = (dma_addr_t)0x180070000;
-    mem6.dst = (dma_addr_t)0x80070000;
+	mem6.src = (dma_addr_t)0x180060000;
+    mem6.dst = (dma_addr_t)0x80060000;
     mem6.length = 0x10000u;;
     mem6.chan = 6u;
 
-	mem7.src = (dma_addr_t)0x180080000;
-    mem7.dst = (dma_addr_t)0x80080000u;
+	mem7.src = (dma_addr_t)0x180070000;
+    mem7.dst = (dma_addr_t)0x80070000u;
     mem7.length = 0x10000u;;
     mem7.chan = 7u;
 	/* fill 8 chn message end */
@@ -161,43 +168,43 @@ static void fill_gdma_chn_message(void)
 
 	/* fill 8 chn message start DDR0 to DDR0 */
 	mem0.src = (dma_addr_t)0x80000000u;
-    mem0.dst = (dma_addr_t)0x80010000u;
-    mem0.length = 0x10000u;
+    mem0.dst = (dma_addr_t)0x84000000u;
+    mem0.length = 0x4000000u;
     mem0.chan = 0u;
 
-	mem1.src = (dma_addr_t)0x80020000u;
-    mem1.dst = (dma_addr_t)0x80030000u;
-    mem1.length = 0x10000u;
+	mem1.src = (dma_addr_t)0x88000000u;
+    mem1.dst = (dma_addr_t)0x8C000000u;
+    mem1.length = 0x4000000u;
     mem1.chan = 1u;
 
-	mem2.src = (dma_addr_t)0x80040000u;
-    mem2.dst = (dma_addr_t)0x80050000u;
-    mem2.length = 0x10000u;
+	mem2.src = (dma_addr_t)0x90000000u;
+    mem2.dst = (dma_addr_t)0x94000000u;
+    mem2.length = 0x4000000u;
     mem2.chan = 2u;
 
-	mem3.src = (dma_addr_t)0x80060000u;
-    mem3.dst = (dma_addr_t)0x80070000u;
-    mem3.length = 0x10000u;
+	mem3.src = (dma_addr_t)0x98000000u;
+    mem3.dst = (dma_addr_t)0x9C000000u;
+    mem3.length = 0x4000000u;
     mem3.chan = 3u;
 
-	mem4.src = (dma_addr_t)0x80080000u;
-    mem4.dst = (dma_addr_t)0x80090000u;
-    mem4.length = 0x10000u;
+	mem4.src = (dma_addr_t)0xA0000000u;
+    mem4.dst = (dma_addr_t)0xA4000000u;
+    mem4.length = 0x4000000u;
     mem4.chan = 4u;
 
-	mem5.src = (dma_addr_t)0x800a0000u;
-    mem5.dst = (dma_addr_t)0x800b0000u;
-    mem5.length = 0x10000u;
+	mem5.src = (dma_addr_t)0xA8000000u;
+    mem5.dst = (dma_addr_t)0xAC000000u;
+    mem5.length = 0x4000000u;
     mem5.chan = 5u;
 
-	mem6.src = (dma_addr_t)0x800c0000u;
-    mem6.dst = (dma_addr_t)0x800d0000u;
-    mem6.length = 0x10000u;
+	mem6.src = (dma_addr_t)0xB0000000u;
+    mem6.dst = (dma_addr_t)0xB4000000u;
+    mem6.length = 0x4000000u;
     mem6.chan = 6u;
 
-	mem7.src = (dma_addr_t)0x800e0000u;
-    mem7.dst = (dma_addr_t)0x800f0000u;
-    mem7.length = 0x10000u;
+	mem7.src = (dma_addr_t)0xB8000000u;
+    mem7.dst = (dma_addr_t)0x8C000000u;
+    mem7.length = 0x4000000u;
     mem7.chan = 7u;
 	/* fill 8 chn message end */
 }
@@ -215,7 +222,7 @@ static void save_sample_data(void)
 	uiBufCnt = uiBufCnt % COUNTER_BUFF_SIZE;
 
 	/* get timestamp */
-	soc_perf_timestamp[uiBufCnt] = timer_get_boot_us();
+	soc_perf_timestamp[uiBufCnt] = timer_get_us();
 	/* get observe packet result */			
 	soc_noc_gdma_buffer[uiBufCnt] = observe_get_gdma_baudrate();
 	/* get ddr0 monitor result */
@@ -300,7 +307,6 @@ static void soc_perf_transfer_ctrl(void)
 			dma_transfer_finished_flag_clear(uiChnCnt);
 		}
 		dma_run(mem_list);
-		// printf("gd\r\n");
 	}
 }
 int check_all_config(void)
@@ -318,11 +324,6 @@ int check_all_config(void)
 	if(g_soc_perf_test_port > 2u)
 	{
 		printf("Invalid performance test port,please call set_test_port cmd first\r\n");
-		return CMD_RET_FAILURE;
-	}
-	if(g_sample_cycle == 0)
-	{
-		printf("Invalid cycle time,please call set_stime cmd first\r\n");
 		return CMD_RET_FAILURE;
 	}
 	return CMD_RET_SUCCESS;
@@ -406,6 +407,7 @@ static int soc_perf_set_sample_cycle_time(cmd_tbl_t *cmdtp, int flag, int argc,
 		else
 		{
 			g_sample_cycle = i;
+			g_set_sample_cycle_flag = 1u;
 			printf("Set sample cycle time %d\r\n",g_sample_cycle);
 		}
     }
@@ -441,10 +443,6 @@ static int soc_perf_set_test_port(cmd_tbl_t *cmdtp, int flag, int argc,
 static int soc_perf_start_test(cmd_tbl_t *cmdtp, int flag, int argc,
 				char * const argv[])
 {
-	// u64	t1 = 0u;
-	// u64	t2 = 0u;
-	// u64	t3 = 0u;
-	// u64	t4 = 0u;
 
 	fill_gdma_chn_message();
 
@@ -462,9 +460,10 @@ static int soc_perf_start_test(cmd_tbl_t *cmdtp, int flag, int argc,
 		soc_perf_enable();
 
 		/* get start ticks */
-		g_start_time = timer_get_boot_us();
-		g_sample_time = timer_get_boot_us();
+		g_start_time = timer_get_us();
+		g_sample_time = timer_get_us();
 		printf("Start time is %d\r\n",g_start_time);
+		printf("Please wait %d seconds for the test to complete...\r\n",g_soc_perf_cycle_time);
 
 		dma_run(mem_list);
 
@@ -473,11 +472,10 @@ static int soc_perf_start_test(cmd_tbl_t *cmdtp, int flag, int argc,
 			soc_perf_transfer_ctrl();
 			
 			/* get current ticks */
-			g_current_time = timer_get_boot_us();
+			g_current_time = timer_get_us();
 
 			if (g_sample_cycle <= (g_current_time - g_sample_time))
 			{
-				// printf("%d %d %d\r\n",g_current_time,g_sample_time,g_current_time - g_sample_time);	
 				update_ddr_monitor();
 
 				save_sample_data();
@@ -486,7 +484,7 @@ static int soc_perf_start_test(cmd_tbl_t *cmdtp, int flag, int argc,
 				/* re-select group */
 				select_ddr_monitor_group();
 			
-				g_current_time = timer_get_boot_us();
+				g_current_time = timer_get_us();
 				g_sample_time = g_current_time;
 			}
 			/* 检查是否到达监测统计时间？ */
@@ -747,7 +745,7 @@ static cmd_tbl_t cmd_soc_perf_sub[] = {
 	BST_CMD_MKENT(get_gdma_data, 1, 1, soc_perf_get_gdma_data, "", ""),
 	BST_CMD_MKENT(get_p0_ddr_data, 1, 1, soc_perf_get_p0_ddr_data, "", ""),
 	BST_CMD_MKENT(get_p1_ddr_data, 1, 1, soc_perf_get_p1_ddr_data, "", ""),
-	BST_CMD_MKENT(get_ddr_monitor_data, 2, 1, soc_perf_get_ddr_monitor_data, "", ""),
+	BST_CMD_MKENT(get_ddr_mdata, 2, 1, soc_perf_get_ddr_monitor_data, "", ""),
 	BST_CMD_MKENT(clear_data, 1, 1, soc_perf_clear_data, "", ""),
 };
 
@@ -773,14 +771,14 @@ static int do_soc_test(cmd_tbl_t * cmdtp, int flag, int argc, char * const argv[
 #ifdef CONFIG_SYS_LONGHELP
 static char soc_test_help_text[] =
     "set_ctime cycle_time_in_seconds       - set current test cycle time，defualt 10 seconds\n\r"
-	"soc_perf_test set_stime sample_time_in_ticks        - set current test cycle time,default 50 ticks\n\r"
+	"soc_perf_test set_stime sample_time_in_ticks        - set current test cycle time\n\r"
     "soc_perf_test set_ddr_grp group_num                 - set ddr monitor group number,default 0\n\r"
     "soc_perf_test set_port_num 0/1/2                    - set the test port,0 : Port0, 1 : Port1, 2 : all Ports,default 0\n\r"
     "soc_perf_test start_perf_test                       - start the soc perf test\n\r"
 	"soc_perf_test get_gdma_data                         - get gdma probe data\n\r"
 	"soc_perf_test get_p0_ddr_data                       - get p0 ddr probe data\n\r"
 	"soc_perf_test get_p1_ddr_data                       - get p1 ddr probe data\n\r"
-	"soc_perf_test get_ddr_monitor_data ddr_num(0 or 1)  - get ddr monitor data\n\r"
+	"soc_perf_test get_ddr_mdata ddr_num(0 or 1)         - get ddr monitor data\n\r"
 	"soc_perf_test clear_data                            - clear all soc perf test data\n\r";
 #endif
 
