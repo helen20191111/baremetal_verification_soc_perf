@@ -10,7 +10,7 @@
 #ifndef __A55_TIMER_H__
 #define __A55_TIMER_H__
 
-#define A55_CLK_FREQ 400000000UL
+#define A55_CLK_FREQ    (400000000UL)
 
 #define CONFIG_WD_PERIOD (10 * 1000 * 1000) /* 10 seconds default */
 

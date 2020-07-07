@@ -15,6 +15,7 @@ lib-y += test_common.o
 lib-y += printk.o
 lib-y += errno.o
 lib-y += display_options.o
+lib-y += time.o
 lib-$(CONFIG_USE_TTY_IO) += tty_io.o
 lib-$(CONFIG_UART3_SYNC) += uart_sync.o
 lib-$(CONFIG_ERRNO_STR) += errno_str.o
