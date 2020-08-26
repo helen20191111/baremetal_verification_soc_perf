@@ -77,7 +77,7 @@ while True:
     else:
         break
 
-fw.write(f'''{strhead}
+fw.write('''{strhead}
 #include "a1000_evb.h"\n''')
 
 for config in lpddr4_config:
